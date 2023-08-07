@@ -9,9 +9,10 @@
 
 ------
 ## Ответ:
-- [cloud-init.yml](04/src/could-init.yml) 
+- [cloud-init.yml](terraform-04/04/src/could-init.yml) 
 
-Педеача ssh-ключа в main.tf
+Педеача ssh-ключа в main.tf:
+
 <details>
 <summary>Часть кода в main.tf:</summary>
 
@@ -25,6 +26,8 @@ data template_file "userdata" {
 }
 ```   
 </details>
+
+Скриншот:
 
 ![](pic/1.png) 
 
@@ -50,9 +53,9 @@ module "vpc_dev" {
 
 ## Ответ:
 Файлы:  
-- [Модель VPC](04/src/vpc)  
-- [main.tf](04/src/main.tf)
-- [Документация к модулю VPC](04/src/vpc/readme.md)
+- [Модуль VPC](terraform-04/04/src/vpc)  
+- [main.tf](terraform-04/04/src/main.tf)
+- [Документация к модулю VPC](terraform-04/04/src/vpc/readme.md)
 
 Скриншоты:
 
