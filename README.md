@@ -70,3 +70,88 @@ module "vpc_dev" {
 Приложите список выполненных команд и скриншоты процессы.
 
 ## Ответ:
+
+<details>
+<summary>Вывод комманд:</summary>
+
+```sh
+
+[skvorchenkov@localhost src]$ terraform state list
+data.template_file.userdata
+module.test-vm.data.yandex_compute_image.my_image
+module.test-vm.yandex_compute_instance.vm[0]
+module.vpc.yandex_vpc_network.net_name
+module.vpc.yandex_vpc_subnet.subnet_name
+[skvorchenkov@localhost src]$ terraform state show module.vpc.yandex_vpc_network.net_name
+# module.vpc.yandex_vpc_network.net_name:
+resource "yandex_vpc_network" "net_name" {
+    created_at = "2023-08-08T19:07:47Z"
+    folder_id  = "b1gdgnothmd86ut0ulgu"
+    id         = "enppotfa10pa73t7tnpk"
+    labels     = {}
+    name       = "develop"
+    subnet_ids = []
+}
+[skvorchenkov@localhost src]$ terraform state show module.vpc.yandex_vpc_subnet.subnet_name
+# module.vpc.yandex_vpc_subnet.subnet_name:
+resource "yandex_vpc_subnet" "subnet_name" {
+    created_at     = "2023-08-08T19:07:49Z"
+    folder_id      = "b1gdgnothmd86ut0ulgu"
+    id             = "e9b45k2rr5g67ad4bl9r"
+    labels         = {}
+    name           = "develop-ru-central1-a"
+    network_id     = "enppotfa10pa73t7tnpk"
+    v4_cidr_blocks = [
+        "10.0.1.0/24",
+    ]
+    v6_cidr_blocks = []
+    zone           = "ru-central1-a"
+}
+[skvorchenkov@localhost src]$ terraform state rm 'module.vpc'
+Removed module.vpc.yandex_vpc_network.net_name
+Removed module.vpc.yandex_vpc_subnet.subnet_name
+Successfully removed 2 resource instance(s).
+[skvorchenkov@localhost src]$ terraform import module.vpc.yandex_vpc_network.net_name enppotfa10pa73t7tnpk
+data.template_file.userdata: Reading...
+data.template_file.userdata: Read complete after 0s [id=a01fbf4b48c1e258b11abe5636ef51abbfdd3b77c3120085c2d0594cd9ae7a58]
+module.vpc.yandex_vpc_network.net_name: Importing from ID "enppotfa10pa73t7tnpk"...
+module.vpc.yandex_vpc_network.net_name: Import prepared!
+  Prepared yandex_vpc_network for import
+module.vpc.yandex_vpc_network.net_name: Refreshing state... [id=enppotfa10pa73t7tnpk]
+module.test-vm.data.yandex_compute_image.my_image: Reading...
+module.test-vm.data.yandex_compute_image.my_image: Read complete after 1s [id=fd8h5v894psivbl4t2dn]
+
+Import successful!
+
+The resources that were imported are shown above. These resources are now in
+your Terraform state and will henceforth be managed by Terraform.
+[skvorchenkov@localhost src]$ terraform import module.vpc.yandex_vpc_subnet.subnet_name e9b45k2rr5g67ad4bl9r
+data.template_file.userdata: Reading...
+data.template_file.userdata: Read complete after 0s [id=a01fbf4b48c1e258b11abe5636ef51abbfdd3b77c3120085c2d0594cd9ae7a58]
+module.test-vm.data.yandex_compute_image.my_image: Reading...
+module.vpc.yandex_vpc_subnet.subnet_name: Importing from ID "e9b45k2rr5g67ad4bl9r"...
+module.vpc.yandex_vpc_subnet.subnet_name: Import prepared!
+  Prepared yandex_vpc_subnet for import
+module.vpc.yandex_vpc_subnet.subnet_name: Refreshing state... [id=e9b45k2rr5g67ad4bl9r]
+module.test-vm.data.yandex_compute_image.my_image: Read complete after 1s [id=fd8h5v894psivbl4t2dn]
+
+Import successful!
+
+The resources that were imported are shown above. These resources are now in
+your Terraform state and will henceforth be managed by Terraform.
+[skvorchenkov@localhost src]$ terraform plan
+data.template_file.userdata: Reading...
+data.template_file.userdata: Read complete after 0s [id=a01fbf4b48c1e258b11abe5636ef51abbfdd3b77c3120085c2d0594cd9ae7a58]
+module.test-vm.data.yandex_compute_image.my_image: Reading...
+module.vpc.yandex_vpc_network.net_name: Refreshing state... [id=enppotfa10pa73t7tnpk]
+module.test-vm.data.yandex_compute_image.my_image: Read complete after 1s [id=fd8h5v894psivbl4t2dn]
+module.vpc.yandex_vpc_subnet.subnet_name: Refreshing state... [id=e9b45k2rr5g67ad4bl9r]
+module.test-vm.yandex_compute_instance.vm[0]: Refreshing state... [id=fhmh4i0k1063ao21vvth]
+
+No changes. Your infrastructure matches the configuration.
+
+Terraform has compared your real infrastructure against your configuration and
+found no differences, so no changes are needed.
+
+```   
+</details>
